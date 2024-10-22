@@ -72,7 +72,7 @@ async function findOpenThreadByUserId(userId) {
 
 function getHeaderGuildInfo(member) {
   return {
-    nickname: member.nick || config.useDisplaynames ? member.user.globalName || member.user.username : member.user.username,
+    nickname: config.useDisplaynames ? member.nick || member.user.globalName || member.user.username : member.user.username,
     joinDate: humanizeDuration(Date.now() - member.joinedAt, {largest: 2, round: true})
   };
 }
