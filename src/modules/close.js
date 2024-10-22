@@ -47,6 +47,11 @@ module.exports = ({ bot, knex, config, commands }) => {
 
     body = `${body}\n${await getMessagesAmounts(thread)}`;
 
+    if (!config.displayTicketTranscript) {
+      utils.postLog(utils.trimAll(body));
+      return;
+    }
+
     const logUrl = await getLogUrl(thread);
     if (logUrl) {
       utils.postLog(utils.trimAll(`
