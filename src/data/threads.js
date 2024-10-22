@@ -228,11 +228,22 @@ async function createNewThreadForUser(user, opts = {}) {
       }
     }
 
+    let user_name = null;
+    if (config.useDisplaynames) {
+      user_name = await utils.getMemberDisplayName(user.id)
+      if (!user_name) {
+        try {
+          const { member } = userGuildData.get(config.mainServerId[0]);
+          user_name = member.nick;
+        } catch (err) {}
+      }
+    }
+
     // Save the new thread in the database
     const newThreadId = await createThreadInDB({
       status: THREAD_STATUS.OPEN,
       user_id: user.id,
-      user_name: user.username,
+      user_name: user_name || user.username,
       channel_id: createdChannel.id,
       next_message_number: 1,
       created_at: moment.utc().format("YYYY-MM-DD HH:mm:ss")
