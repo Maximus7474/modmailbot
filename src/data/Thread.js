@@ -456,11 +456,20 @@ class Thread {
 
     messageContent = messageContent.trim();
 
+    let displayedName = null;
+    if (config.useDisplaynames) {
+      displayedName = await utils.getMemberDisplayName(this.user_id) || msg.author.globalName;
+    }
+
+    if (!displayedName) {
+      displayedName = msg.author.username
+    }
+
     // Save DB entry
     let threadMessage = new ThreadMessage({
       message_type: THREAD_MESSAGE_TYPE.FROM_USER,
       user_id: this.user_id,
-      user_name: config.useDisplaynames ? msg.author.globalName || msg.author.username : msg.author.username,
+      user_name: displayedName,
       body: messageContent,
       is_anonymous: 0,
       dm_message_id: msg.id,
