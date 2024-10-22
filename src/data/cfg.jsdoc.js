@@ -4,6 +4,7 @@
  * @property {array} [mainServerId]
  * @property {string} [inboxServerId]
  * @property {string} [logChannelId]
+ * @property {boolean} [displayTicketTranscript=true]
  * @property {array} [mainGuildId]
  * @property {string} [mailGuildId]
  * @property {string} [prefix="!"]
