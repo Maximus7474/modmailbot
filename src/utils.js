@@ -568,6 +568,19 @@ function messageContentToAdvancedMessageContent(content) {
   return typeof content === "string" ? { content } : content;
 }
 
+/**
+ * Receives an ID and returns a user display name
+ * @param {string} user_id
+ * @returns {string|false}
+ */
+async function getMemberDisplayName(user_id) {
+  let member = await bot.getRESTGuildMember(config.inboxServerId, user_id);
+  if (member) {
+    return member.nick
+  }
+  return false;
+}
+
 const START_CODEBLOCK = "```";
 const END_CODEBLOCK = "```";
 
@@ -621,6 +634,8 @@ module.exports = {
   messageContentToAdvancedMessageContent,
 
   getOrFetchChannel,
+
+  getMemberDisplayName,
 
   noop,
 
